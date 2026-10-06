@@ -1,0 +1,26 @@
+command:
+  - python
+  - app.py
+
+env:
+  - name: DATABRICKS_WAREHOUSE_ID
+    value: 22998c886e21ee6c
+  - name: CDI_AGENT_ENDPOINT
+    value: databricks-claude-sonnet-5
+  - name: CDI_CATALOG
+    value: "`external-ai-build-day`"
+
+resources:
+  - name: sql-warehouse
+    sql_warehouse:
+      id: 22998c886e21ee6c
+      permission: CAN_USE
+  - name: cdi-coding-model
+    serving_endpoint:
+      name: databricks-claude-sonnet-5
+      permission: CAN_QUERY
+  - name: postgres
+    postgres:
+      branch: projects/cdi-coding-copilot/branches/production
+      database: projects/cdi-coding-copilot/branches/production/databases/databricks-postgres
+      permission: CAN_CONNECT_AND_CREATE
